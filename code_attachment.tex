@@ -1,0 +1,651 @@
+\chapter{CODE ATTACHMENTS}
+
+\section{Lane Detection}
+
+\begin{lstlisting}[language=Python]
+# Python program to find the edges of the lanes for settimg the boundary limit
+
+import cv2
+import numpy as np
+
+def make_coordinates(image, line_parameters):
+	slope, intercept = line_parameters
+	y1 = image.shape[0]
+	y2 = int(y1*(3/5))
+	x1 = int((y1 - intercept)/slope)
+	x2 = int((y2 - intercept)/slope)
+	return np.array([x1, y1, x2, y2])
+
+def average_slope_intercept(image, lines):
+	left_fit = []
+	right_fit = []
+	for line in lines:
+		x1, y1, x2, y2 = line.reshape(4)
+		parametres = np.polyfit((x1, x2), (y1, y2), 1)
+		slope = parametres[0]
+		intercept = parametres[1]
+		if slope < 0:
+			left_fit.append((slope, intercept))
+		else:
+			right_fit.append((slope, intercept))
+	left_fit_average = np.average(left_fit, axis=0)
+	right_fit_average = np.average(right_fit, axis=0)
+	left_line = make_coordinates(image, left_fit_average)
+	right_line = make_coordinates(image, right_fit_average)
+	return np.array([left_line, right_line])
+
+def canny(image):
+	gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+	blur = cv2.GaussianBlur(gray, (5,5), 0)
+	canny = cv2.Canny(blur, 50, 150)
+	return canny
+
+def display_lines(image, lines):
+	line_image = np.zeros_like(image)
+	if lines is not None:
+		for x1, y1, x2, y2 in lines:
+			cv2.line(line_image, (x1, y1), (x2, y2), (255, 0, 0), 10)
+	return line_image
+
+def region_of_interest(image):
+	height = image.shape[0]
+	polygons = np.array([[(200, height), (1100, height), (550, 250)]])
+	mask = np.zeros_like(image)
+	cv2.fillPoly(mask, polygons, 255)
+	masked\_image = cv2.bitwise_and(image, mask)
+	return masked_image
+
+#image = cv2.imread('/Users/indian/Desktop/finding-lanes/test_image.jpg')
+#lane_image = np.copy(image)
+#canny_image = canny(lane_image)
+#cropped_image = region_of_interest(canny_image)
+#lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+#averaged_lines = average_slope_intercept(lane_image, lines)
+#line_image = display_lines(lane_image, averaged_lines)
+#combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+#cv2.imshow("result", combo_image)
+#cv2.waitKey(0)
+
+cap = cv2.VideoCapture("test2.mp4")
+while(cap.isOpened()):
+	_, frame = cap.read()
+	canny_image = canny(frame)
+	cropped_image = region_of_interest(canny_image)
+	lines = cv2.HoughLinesP(cropped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+	averaged_lines = average_slope_intercept(frame, lines)
+	line_image = display_lines(frame, averaged_lines)
+	combo_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
+	cv2.imshow("result", combo_image)
+	if cv2.waitKey(1) & 0xFF == ord('q'):
+		break
+cap.release()
+cv2.destroyAllWindows()
+
+\end{lstlisting}
+
+
+\section{Traffic-Sign Classification}
+
+\begin{lstlisting}[language=Python]
+#Traffic Sign Classification Python Program
+!git clone https://bitbucket.org/jadslim/german-traffic-signs
+
+!ls german-traffic-signs
+
+import numpy as np
+import matplotlib.pyplot as plt
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import Adam
+from keras.utils.np_utils import to\_categorical
+from keras.layers import Dropout, Flatten
+from keras.layers.convolutional import Conv2D, MaxPooling2D
+import pickle
+import pandas as pd
+import random
+
+from keras.callbacks import LearningRateScheduler, ModelCheckpoint
+
+%matplotlib inline
+
+np.random.seed(0)
+
+# TODO: Implement load the data here.
+with open('german-traffic-signs/train.p', 'rb') as f:
+	train_data = pickle.load(f)
+with open('german-traffic-signs/valid.p', 'rb') as f:
+	val_data = pickle.load(f)
+# TODO: Load test data
+with open('german-traffic-signs/test.p', 'rb') as f:
+	test_data = pickle.load(f)
+	
+# Split out features and labels
+X_train, y_train = train_data['features'], train_data['labels']
+X_val, y_val = val_data['features'], val_data['labels']
+X_test, y_test = test_data['features'], test_data['labels']
+
+#already 4 dimensional
+print(X_train.shape)
+print(X_test.shape)
+print(X_val.shape)
+
+# STOP: Do not change the tests below. Your implementation should pass these tests.
+assert(X_train.shape[0] == y_train.shape[0]), "The number of images is not equal to the number of labels"
+assert(X_val.shape[0] == y_val.shape[0]), "The number of images is not equal to the number of labels"
+assert(X_test.shape[0] == y_test.shape[0]), "The number of images is not equal to the number of labels"
+assert(X_train.shape[1:] == (32,32,3)), "The dimensions of the images are not 32 x 32 x 3"
+assert(X_val.shape[1:] == (32,32,3)), "The dimensions of the images are not 32 x 32 x 3"
+assert(X_test.shape[1:] == (32,32,3)), "The dimensions of the images are not 32 x 32 x 3"
+
+data = pd.read_csv('german-traffic-signs/signnames.csv')
+num_of_samples=[]
+cols = 5
+num_classes = 43
+fig, axs = plt.subplots(nrows=num_classes, ncols=cols, figsize=(5,50))
+fig.tight_layout()
+for i in range(cols):
+	for j, row in data.iterrows():
+		x_selected = X_train[y_train == j]
+		axs[j][i].imshow(x_selected[random.randint(0,(len(x_selected) - 1)), :, :], cmap=plt.get_cmap('gray'))
+		axs[j][i].axis('off')
+		if i == 2:
+			axs[j][i].set_title(str(j) + "-" + row["SignName"])
+			num_of_samples.append(len(x_selected))
+
+print(num_of_samples)
+plt.figure(figsize=(12, 4))
+plt.bar(range(0, num_classes), num_of_samples)
+plt.title("Distribution of the train dataset")
+plt.xlabel("Class number")
+plt.ylabel("Number of images")
+plt.show()
+
+import cv2
+plt.imshow(X_train[1000])
+plt.axis('off')
+print(X_train[1000].shape)
+print(y_train[1000])
+
+def grayscale(img):
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	return img	
+img = grayscale(X_train[1000])
+plt.imshow(img)
+plt.axis('off')
+print(img.shape)
+
+def equalize(img):
+	img = cv2.equalizeHist(img)
+	return img
+img = equalize(img)
+plt.imshow(img)
+plt.axis('off')
+print(img.shape)
+
+def preprocessing(img):
+	img = grayscale(img)
+	img = equalize(img)
+	img = img/255
+	return img
+X_train = np.array(list(map(preprocessing, X_train)))
+X_test = np.array(list(map(preprocessing, X_test)))
+X_val = np.array(list(map(preprocessing, X_val)))
+
+plt.imshow(X_train[random.randint(0, len(X_train) - 1)])
+plt.axis('off')
+print(X_train.shape)
+
+X_train = X_train.reshape(34799, 32, 32, 1)
+X_test = X_test.reshape(12630, 32, 32, 1)
+X_val = X_val.reshape(4410, 32, 32, 1)
+
+from keras.preprocessing.image import ImageDataGenerator
+
+datagen = ImageDataGenerator(width_shift_range=0.1,height_shift_range=0.1,zoom_range=0.2,shear_range=0.1,rotation_range=10.)
+
+datagen.fit(X_train)
+
+batches = datagen.flow(X_train, y_train, batch_size = 15)
+X_batch, y_batch = next(batches)
+
+fig, axs = plt.subplots(1, 15, figsize=(20, 5))
+fig.tight_layout()
+
+for i in range(15):
+	axs[i].imshow(X_batch[i].reshape(32, 32))
+	axs[i].axis('off')
+#print(X_batch.shape)
+
+print(X_train.shape)
+print(X_test.shape)
+print(X_val.shape)
+
+y_train = to_categorical(y_train, 43)
+y_test = to_categorical(y_test, 43)
+y_val = to_categorical(y_val, 43)
+
+# create model
+def modified_model():
+	model = Sequential()
+	model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 1), activation='relu'))
+	model.add(Conv2D(60, (5, 5), activation='relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	model.add(Conv2D(30, (3, 3), activation='relu'))
+	model.add(Conv2D(30, (3, 3), activation='relu'))
+	model.add(MaxPooling2D(pool_size=(2, 2)))
+	#model.add(Dropout(0.5))
+	model.add(Flatten())
+	model.add(Dense(500, activation='relu'))
+	model.add(Dropout(0.4))
+	model.add(Dense(num_classes, activation='softmax'))
+	#compile model
+	model.compile(Adam(lr = 0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+	return model
+	
+model = modified_model()
+print(model.summary())
+
+history = model.fit_generator(datagen.flow(X_train, y_train, batch_size=50),steps_per_epoch=2000,epochs=10,validation_data=(X_val, y_val), shuffle = 1)
+
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.legend(['training','validation'])
+plt.title('Loss')
+plt.xlabel('epoch')
+
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.legend(['training','validation'])
+plt.title('Accuracy')
+plt.xlabel('epoch')
+
+# TODO: Evaluate model on test data
+score = model.evaluate(X_test, y_test, verbose=0)
+print('Test score:', score[0])
+print('Test accuracy:', score[1])
+
+import requests
+from PIL import Image
+url = 'https://c8.alamy.com/comp/J2MRAJ/german-road-sign-bicycles-crossing-J2MRAJ.jpg'
+r = requests.get(url, stream=True)
+img = Image.open(r.raw)
+plt.imshow(img, cmap=plt.get_cmap('gray'))
+
+img = np.asarray(img)
+img = cv2.resize(img, (32, 32))
+img = preprocessing(img)
+plt.imshow(img, cmap = plt.get_cmap('gray'))
+print(img.shape)
+
+img = img.reshape(1, 32, 32, 1)
+
+print("predicted sign: "+ str(model.predict\_classes(img)))
+
+\end{lstlisting}
+
+\section{Behavioural Cloning}
+
+\begin{lstlisting}[language=Python]
+#Cloning the behaviour of a car using deep-learning and training the vehicle to run autonomously on a track.
+
+%tensorflow_version 1.x%tensorflow_version 1.x
+
+import tensorflow
+print(tensorflow.__version__)
+
+!git clone https://github.com/Shubhashish-Jena/imgdata/
+
+!ls imgdata
+
+!pip3 install imgaug
+
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import keras
+from keras.models import Sequential
+from keras.optimizers import Adam
+from keras.layers import Convolution2D, MaxPooling2D, Dropout, Flatten, Dense
+from sklearn.utils import shuffle
+from sklearn.model_selection import train_test_split
+from imgaug import augmenters as iaa
+import cv2
+import pandas as pd
+import ntpath
+import random
+
+datadir = 'imgdata'
+columns = ['center', 'left', 'right', 'steering', 'throttle', 'reverse', 'speed']
+data = pd.read_csv(os.path.join(datadir, 'driving_log.csv'), names = columns)
+pd.set_option('display.max_colwidth', -1)
+data.head()
+
+def path_leaf(path):
+	head, tail = ntpath.split(path)
+	return tail
+
+data['center'] = data['center'].apply(path_leaf)
+data['left'] = data['left'].apply(path_leaf)
+data['right'] = data['right'].apply(path_leaf)
+data.head()
+
+num_bins = 25
+samples_per_bin = 320
+hist, bins = np.histogram(data['steering'], num_bins)
+center = (bins[:-1]+ bins[1:]) * 0.5
+plt.bar(center, hist, width=0.05)
+plt.plot((np.min(data['steering']), np.max(data['steering'])), (samples_per_bin, samples_per_bin))
+
+print('total data:', len(data))
+remove_list = []
+for j in range(num_bins):
+	list_ = []
+	for i in range(len(data['steering'])):
+		if data['steering'][i] >= bins[j] and data['steering'][i] <= bins[j+1]:
+			list_.append(i)
+	list_ = shuffle(list_)
+	list_ = list_[samples_per_bin:]
+	remove_list.extend(list_)
+print('removed:', len(remove_list))
+data.drop(data.index[remove_list], inplace=True)
+print('remaining:', len(data))
+
+hist, _ = np.histogram(data['steering'], (num_bins))
+plt.bar(center, hist, width=0.05)
+plt.plot((np.min(data['steering']), np.max(data['steering'])), (samples_per_bin, samples_per_bin))
+
+print(data.iloc[1])
+def load_img_steering(datadir, df):
+	image_path = []
+	steering = []
+	for i in range(len(data)):
+		indexed_data = data.iloc[i]
+		center, left, right = indexed_data[0], indexed_data[1], indexed_data[2]
+		image_path.append(os.path.join(datadir, center.strip()))
+		steering.append(float(indexed_data[3]))
+
+		# left image append
+		image_path.append(os.path.join(datadir,left.strip()))
+		steering.append(float(indexed_data[3])+0.15)
+
+		# right image append
+		image_path.append(os.path.join(datadir,right.strip()))
+		steering.append(float(indexed_data[3])-0.15)
+	image_paths = np.asarray(image_path)
+	steerings = np.asarray(steering)
+	return image_paths, steerings
+	
+image_paths, steerings = load_img_steering(datadir + '/IMG', data)
+
+X_train, X_valid, y_train, y_valid = train_test_split(image_paths, steerings, test_size=0.2, random_state=6)
+print('Training Samples: {}\nValid Samples: {}'.format(len(X_train), len(X_valid)))
+
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+axes[0].hist(y_train, bins=num_bins, width=0.05, color='blue')
+axes[0].set_title('Training set')
+axes[1].hist(y_valid, bins=num_bins, width=0.05, color='red')
+axes[1].set_title('Validation set')
+
+def zoom(image):
+	zoom = iaa.Affine(scale=(1, 1.3))
+	image = zoom.augment_image(image)
+	return image
+
+image = image_paths[random.randint(0, 1000)]
+original_image = mpimg.imread(image)
+zoomed_image = zoom(original_image)
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 10))
+fig.tight_layout()
+
+axs[0].imshow(original_image)
+axs[0].set_title('Original Image')
+axs[1].imshow(zoomed_image)
+axs[1].set_title('Zoomed Image')
+
+def pan(image):
+	pan = iaa.Affine(translate_percent= {"x" : (-0.1, 0.1), "y": (-0.1, 0.1)})
+	image = pan.augment_image(image)
+	return image
+	
+
+image = image_paths[random.randint(0, 1000)]
+original_image = mpimg.imread(image)
+panned_image = pan(original_image)
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 10))
+fig.tight_layout()
+
+axs[0].imshow(original_image)
+axs[0].set_title('Original Image')
+
+axs[1].imshow(panned_image)
+axs[1].set_title('Panned Image')
+
+
+def img_random_brightness(image):
+	brightness = iaa.Multiply((0.2, 1.2))
+	image = brightness.augment_image(image)
+	return image
+
+image = image_paths[random.randint(0, 1000)]
+original_image = mpimg.imread(image)
+brightness_altered_image = img_random_brightness(original_image)
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 10))
+fig.tight_layout()
+
+axs[0].imshow(original_image)
+axs[0].set_title('Original Image')
+
+axs[1].imshow(brightness_altered_image)
+axs[1].set_title('Brightness altered image ')
+
+def img_random_flip(image, steering_angle):
+	image = cv2.flip(image,1)
+	steering_angle = -steering_angle
+	return image, steering_angle
+
+random_index = random.randint(0, 1000)
+image = image_paths[random_index]
+steering_angle = steerings[random_index]
+
+original_image = mpimg.imread(image)
+flipped_image, flipped_steering_angle = img_random_flip(original_image, steering_angle)
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 10))
+fig.tight_layout()
+
+axs[0].imshow(original_image)
+axs[0].set_title('Original Image - ' + 'Steering Angle:' + str(steering_angle))
+
+axs[1].imshow(flipped_image)
+axs[1].set_title('Flipped Image - ' + 'Steering Angle:' + str(flipped_steering_angle))
+
+
+def random_augment(image, steering_angle):
+	image = mpimg.imread(image)
+	if np.random.rand() < 0.5:
+		image = pan(image)
+	if np.random.rand() < 0.5:
+		image = zoom(image)
+	if np.random.rand() < 0.5:
+		image = img_random_brightness(image)
+	if np.random.rand() < 0.5:
+		image, steering_angle = img_random_flip(image, steering_angle)
+	
+	return image, steering_angle
+	
+ncol = 2
+nrow = 10
+
+fig, axs = plt.subplots(nrow, ncol, figsize=(15, 50))
+fig.tight_layout()
+
+for i in range(10):
+	randnum = random.randint(0, len(image_paths) - 1)
+	random_image = image_paths[randnum]
+	random_steering = steerings[randnum]
+	
+	original_image = mpimg.imread(random_image)
+	augmented_image, steering = random_augment(random_image, random_steering)
+
+	axs[i][0].imshow(original_image)
+	axs[i][0].set_title("Original Image")
+
+	axs[i][1].imshow(augmented_image)
+	axs[i][1].set_title("Augmented Image")
+
+def img_preprocess(img):
+	img = img[60:135,:,:]
+	img = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)
+	img = cv2.GaussianBlur(img, (3, 3), 0)
+	img = cv2.resize(img, (200, 66))
+	img = img/255
+	return img
+
+image = image_paths[100]
+original_image = mpimg.imread(image)
+preprocessed_image = img_preprocess(original_image)
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 10))
+fig.tight_layout()
+axs[0].imshow(original_image)
+axs[0].set_title('Original Image')
+axs[1].imshow(preprocessed_image)
+axs[1].set_title('Preprocessed Image')
+
+
+def batch_generator(image_paths, steering_ang, batch_size, istraining):
+	while True:
+		batch_img = []
+		batch_steering = []
+		for i in range(batch_size):
+			random_index = random.randint(0, len(image_paths) - 1)
+			if istraining:
+				im, steering = random_augment(image_paths[random_index], steering_ang[random_index])
+			else:
+				im = mpimg.imread(image_paths[random_index])
+				steering = steering_ang[random_index]
+
+			im = img_preprocess(im)
+			batch_img.append(im)
+			batch_steering.append(steering)
+		yield (np.asarray(batch_img), np.asarray(batch_steering))
+
+
+x_train_gen, y_train_gen = next(batch_generator(X_train, y_train, 1, 1))
+x_valid_gen, y_valid_gen = next(batch_generator(X_valid, y_valid, 1, 0))
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 10))
+fig.tight_layout()
+
+axs[0].imshow(x_train_gen[0])
+axs[0].set_title('Training Image')
+
+axs[1].imshow(x_valid_gen[0])
+axs[1].set_title('Validation Image')
+
+def nvidia_model():
+	model = Sequential()
+	
+	model.add(Convolution2D(24, 5, 5, subsample=(2, 2), input_shape=(66, 200, 3), activation='elu'))
+	model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation='elu'))
+	model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation='elu'))
+	model.add(Convolution2D(64, 3, 3, activation='elu'))
+	model.add(Convolution2D(64, 3, 3, activation='elu'))
+	
+	#model.add(Dropout(0.5))
+	model.add(Flatten())
+	model.add(Dense(100, activation = 'elu'))
+	
+	#model.add(Dropout(0.5))
+	model.add(Dense(50, activation = 'elu'))
+	
+	#model.add(Dropout(0.5))
+	model.add(Dense(10, activation = 'elu'))
+	
+	#model.add(Dropout(0.5))
+	model.add(Dense(1))
+	
+	optimizer = Adam(lr=1e-4)
+	model.compile(loss='mse', optimizer=optimizer)
+	return model
+	
+	
+print(model.summary())
+model = nvidia_model()
+
+history = model.fit_generator(batch_generator(X_train, y_train, 100, 1), steps_per_epoch=300, epochs=10, validation_data=batch_generator(X_valid, y_valid, 100, 0), validation_steps=200, verbose=1, shuffle = 1)
+
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.legend(['training', 'validation'])
+plt.title('Loss')
+plt.xlabel('Epoch')
+
+
+model.save('model.h5')
+
+from google.colab import files
+files.download('model.h5')
+\end{lstlisting}
+
+\section{Simulation Application Connection}
+
+\begin{lstlisting}[language=Python]
+#Establishing a Server-Client Connection between the simulation application and our trained Deep-Learning Model(model.h5)
+import socketio
+import eventlet
+import numpy as np
+from flask import Flask
+from keras.models import load_model
+import base64
+from io import BytesIO
+from PIL import Image
+import cv2
+
+sio = socketio.Server()
+
+app = Flask(__name__) #'__main__'
+speed_limit = 10
+
+def img_preprocess(img):
+	img = img[60:135,:,:]
+	img = cv2.cvtColor(img, cv2.COLOR_RGB2YUV)
+	img = cv2.GaussianBlur(img,  (3, 3), 0)
+	img = cv2.resize(img, (200, 66))
+	img = img/255
+	return img
+
+
+@sio.on('telemetry')
+def telemetry(sid, data):
+	speed = float(data['speed'])
+	image = Image.open(BytesIO(base64.b64decode(data['image'])))
+	image = np.asarray(image)
+	image = img_preprocess(image)
+	image = np.array([image])
+	steering_angle = float(model.predict(image))
+	throttle = 1.0 - speed/speed_limit
+	print('{} {} {}'.format(steering_angle, throttle, speed))
+	send_control(steering_angle, throttle)
+
+@sio.on('connect')
+def connect(sid, environ):
+	print('Connected')
+	send_control(0, 0)
+
+def send_control(steering_angle, throttle):
+	sio.emit('steer', data = {'steering_angle': steering_angle.__str__(),'throttle': throttle.__str__()})
+
+
+if __name__ == '__main__':
+	model = load_model('model.h5')
+	app = socketio.Middleware(sio, app)
+	eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
+
+\end{lstlisting}

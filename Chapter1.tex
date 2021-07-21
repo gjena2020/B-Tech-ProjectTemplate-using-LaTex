@@ -1,0 +1,161 @@
+\chapter{}
+\section{Introduction}
+{\textbf{Autonomous car}}
+
+A driverless~\cite{liden2017driverless} vehicle capable of fulfilling the main transportation capabilities of a traditional car. The usage and production of these cars has become a leading industry in almost every area of the world. According to the forecasts, the world’s car stock will reach two billion by 2021. Over the years and centuries, this industry has gone through enormous development, as the first vehicles were only powered by steam engine, then petrol and diesel came to public mind and currently it seems that the electric propulsion will be the future. Of course, with this development, faster and more useful vehicles can be produced, but in our accelerated world with more  and more cars, unfortunately the numbers of accidents have increased. In most cases, these accidents are the fault of the driver, therefore it could be theoretically replaceable with the help of self-propelled cars.  Human presence is the most important part in transport at present, although there are many areas where you can use a tool or feature that helps people achieve greater efficiency. Some examples for these features are the autopilot on  aircraft, the cruise control in cars, and many other tools that help decision-making. In this study, we will provide a brief summary about the development of self-driving or at least driver assisting devices 
+
+\subsection{Evolution of Self-Driving Cars}
+
+Autonomous cars are those vehicles which are driven by digital technologies without any human intervention. They are  capable  of  driving  and navigating  themselves  on  the roads  by  sensing  the  environmental  impacts.  Their appearance is designed to occupy less space on the road in order  to  avoid  traffic  jams  and  reduce  the  likelihood  of accidents.  Although the  progression  is  gigantic, in  2017, allowed  automated  cars  on  public  roads  are  not  fully autonomous: each  one needs  a human driver who notices when  it  is  necessary  to  take  back  the  control  over  the vehicle. The dream of self-propelled~\cite{szikora2017self} cars goes back to the Middle Ages, centuries before the invention of the car. An evidence for  this  statement  comes  from  sketches  of  Leonardo  De Vinci, in which he  made a  rough plan  of them.  Later,  in literature and  in several science  fiction  novels,  the robots and the vehicles controlled by them, appeared. The first driverless cars~\cite{basu2019driverless}  were prototyped in the 1920s, but they  looked  different  than  they  are  today.  Although  the  "driver"  was  nominally  lacking,  these  vehicles  relied heavily on specific external inputs. One  of  these  solutions  is  when  the  car  is  controlled  by another car behind  it.  Its prototype  was introduced  in New  York  and  Milwaukee  known  as the  American Wonder" or "Phantom Auto".\\
+
+Most of the big names~\cite{howley2012race}  – Mercedes Benz, Audi,  BMW, Tesla,  Hyundai etc. have begun  developing or  forming partnerships around  autonomous technology. They invested  sizable resources into this, and  by making this  step they wanted to be leaders at the market of self-driving cars. Up to  this point,  numerous aids,  software and  sensors have  been put  into these cars, but we are still  far from  full autonomy.  They use lasers that are testing the environment with the help of LIDAR ((Light Detection and Ranging). This optical technology senses the shape and movement of objects around the car; combined with the digital GPS map of the area, they detect white and yellow lines on the road, as well as all standing and moving objects on their perimeter.  
+Autonomous vehicles can only drive themselves if the human driver can take over the control if needed. 
+
+\subsection{Features of Driver less car}
+These are those features that driver less cars already use: 
+\begin{itemize}
+	\item Collision Avoidance 
+	\item Drifting Warning
+	\item Blind-spot Detectors 
+	\item Enhanced cruise control 
+	\item Self-Parking 
+\end{itemize}
+
+\subsection{Levels of Autonomous Vehicle~\cite{schoettle2015motorists}}
+
+The  National  Highway  Traffic  Safety Administration  (NHTSA) adopted  the levels of  the Society  of Automotive Engineers(SAE)  for  automated  driving  systems,  which  provides  a  broad  spectrum  of  total  human  participation  to  total autonomy. NHTSA expects automobile manufacturers to classify each vehicle in the coming years using SAE 0 to 5 levels~\cite{blain2017self}. These are the levels of SAE: 
+
+\subsubsection{Level 0: No Automation}
+In this case, there is 100\% of human presence. Acceleration, braking  and steering  are constantly  controlled by  a human driver,  even  if  they  support  warning  sounds  or  safety intervention  systems.  This  level  also  includes  automated emergency braking. 
+
+\subsubsection{Level 1: Driver Assistance} 
+The  computer  never  controls  steering  and  accelerating  or braking simultaneously. In certain driving modes, the car can take  control  of  the  steering  wheel  or  pedals.  The  best examples  for the  first level are  adaptive cruise  control and parking assistance. 
+
+\subsubsection{Level 2: Partial Automation} 
+The driver can take his hands off the steering wheel. At this level, there are set-up options in which the car can control both pedals and the steering wheel at the same time, but only under certain circumstances. During this time the driver has to pay attention and if it is necessary, intervene. This is what Tesla Autopilot has known since 2014. 
+
+\subsubsection{Level 3: Conditional Automation}
+It approaches full autonomy, but this is dangerous in terms of liability, therefore, paying attention to them is a very  important  element.  Here  the  car  has  a  certain  mode  that  can  take  full  responsibility  for  driving  in  certain circumstances, but the driver must take the control back when the system asks. At this level, the car can decide when to change lanes and how to respond to dynamic events on the road and it uses the human driver as a backup system. 
+
+\subsubsection{Level 4: High Automation} 
+It is similar to the previous level, but it is much safer. The vehicle can drive itself under suitable circumstances, and it does not need human intervention. If the car meets something that it cannot handle, it will ask for human help, but it will not endanger passengers if there is no human response. These cars are close to the fully self-driving car. 
+
+\subsubsection{Level 5: Full Automation} 
+At this level, as the car drives itself, human presence is not a necessity, only an opportunity. The  front seats  can turn backwards  so  passengers  can  talk more  easily  with  each other,  because the  car  does not  need  help in  driving.  All driving tasks are performed by the computer on any road under any circumstances, whether there's a human on board or not. These levels are very useful as with these we can keep track of what happens when we move from human-driven cars to fully  automated ones. This  transition will  have enormous consequences for our lives, our work and our future travels. As  autonomous driving  options are  widespread, the  most advanced detection,  vision and control  technologies allow cars to detect and monitor all objects around the car, relying on real-time object measurements. In  addition,  the  information  technology  built  into  the vehicle is fully capable of delivering both external (field)  and internal (machine) information to the car
+
+
+\section{Introduction of CNN}
+
+ CNNs~\cite{lecun1989backpropagation} have revolutionized pattern recognition~\cite{krizhevsky2012imagenet}. Prior to the widespread adoption of CNNs, most pattern recognition tasks were performed using an initial stage of hand-crafted feature extraction followed by a classifier. The breakthrough of CNNs is that features are learned automatically from training examples. The CNN approach is especially powerful in image recognition tasks because the convolution operation captures the 2D nature of images. Also, by using the convolution kernels to scan an entire image, relatively few parameters need to be learned compared to the total number of operations. While CNNs with learned features have been in commercial use for over twenty years~\cite{jackel1995optical}, their adoption has exploded in the last few years because of two recent developments. First, large labeled data sets such as the Large Scale Visual Recognition Challenge (ILSVRC)~\cite{berg2010large} have become available for training and validation. Second, CNN learning algorithms have been implemented on the massively parallel graphics processing units (GPUs) which tremendously accelerate learning and inference.\\
+
+In this project, we describe a CNN that goes beyond pattern recognition. It learns the entire processing pipeline needed to steer an automobile. The original work was done over 14 years ago in a Defense Advanced Research Projects Agency (DARPA) seedling project known as DARPA Autonomous Vehicle (DAVE)~\cite{lecun2004dave} in which a sub-scale radio control (RC) car drove through a junk-filled alley way. DAVE was trained on hours of human driving in similar, but not identical environments. The training data included video from two cameras coupled with left and right steering commands from a human operator. In many ways, DAVE-2 was inspired by the pioneering work of Pomerleau~\cite{pomerleau1989alvinn} who in 1989 built the Autonomous Land Vehicle in a Neural Network (ALVINN) system. It demonstrated that an end-to-end trained neural network can indeed steer a car on public roads. \\\\
+While DAVE demonstrated the potential of end-to-end learning, and indeed was used to justify starting the DARPA Learning Applied to Ground Robots (LAGR) program~\cite{bojarski2016end}, DAVE’s performance was not sufficiently reliable to provide a full alternative to more modular approaches to off-road driving. DAVE’s mean distance between crashes was about 20 meters in complex environments. A new effort was started at NVIDIA that sought to build on DAVE and create a robust system for driving on public roads. The primary motivation for this work is to avoid the need to recognize specific human-designated features, such as lane markings, guard rails, or other cars, and to avoid having to create a collection of “if, then, else” rules, based on observation of these features~\cite{wang2001trajectory}. This project describes preliminary results of this new effort.
+
+
+\subsection{Overview of the DAVE-2 System}
+
+ Figure 1.1 shows a simplified block diagram of the collection system for training data for DAVE-2 . Three cameras are mounted behind the windshield of the data-acquisition car. Time-stamped video from the cameras is captured simultaneously with the steering angle applied by the human driver. This steering command is obtained by tapping into the vehicle’s Controller Area Network (CAN) bus.\\
+ 
+ In order to make our system independent of the car geometry, we represent the steering command as 1/r where r is the turning radius in meters. We use 1/r instead of r to prevent a singularity when driving straight (the turning radius for driving straight is infinity). 1/r smoothly transitions through zero from left turns (negative values) to right turns (positive values). Training data contains single images sampled from the video, paired with the corresponding steering command (1/r). Training with data from only the human driver is not sufficient.\\\\
+ The network must learn how to recover from mistakes. Otherwise the car will slowly drift off the road. The training data is therefore augmented with additional images that show the car in different shifts from the center of the lane and rotations from the direction of the road.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{dcs.jpg}
+	\caption{Data Collection System}
+\end{figure}
+
+Images for two specific off-center shifts can be obtained from the left and the right camera. Additional shifts between the cameras and all rotations are simulated by viewpoint transformation of the image from the nearest camera. Precise viewpoint transformation requires 3D scene knowledge which we don’t have. We therefore approximate the transformation by assuming all points below the horizon are on flat ground and all points above the horizon are infinitely far away.\\\\
+This works fine for flat terrain but it introduces distortions for objects that stick above the ground, such as cars, poles, trees, and buildings. Fortunately these distortions don’t pose a big problem for network training. The steering label for transformed images is adjusted to one that would steer the vehicle back to the desired location and orientation in two seconds. A block diagram of our training system is shown in Figure 1.2.\\\\
+Images are fed into a CNN which then computes a proposed steering command. The proposed command is compared to the desired command for that image and the weights of the CNN are adjusted to bring the CNN output closer to the desired output. . The weight adjustment is accomplished using back propagation algorithm.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{tnn.jpg}
+	\caption{Block diagram for Training Neural Network}
+\end{figure}
+Once trained, the network can generate steering from the video images of a single center camera. This configuration is shown in Figure 1.3.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{tnwsc.jpg}
+	\caption{Training Network for Steering Command}
+\end{figure}
+
+\section{Modules}
+\begin{enumerate}
+\item Lane Detection
+\item Traffic sign classification
+\item Deep Learning training using  Convolution Neural Network (Nvidia model).
+\item Vehicle behavioral cloning
+\item Simulation on Open source self driving car simulator.
+\end{enumerate}
+
+\subsection{Lane Detection}
+{\textbf{Packages used:}}\\
+OPENCV, NumPy
+
+Capture any real time or stored video and convert it into gray-scale.
+Go for preprocessing (applying Gaussian filter to reduce the noise of the video frames and detect sharp contrasting zones).\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{gstogb.png}
+	\caption{Gray-scale to Gauusian Blurr}
+\end{figure}
+Then we go for Canny Edge Detection implementation on our Gaussian Blurred image to highlight the edges in the image. The image is shown below :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{gstoci.png}
+	\caption{Gauusian blurr gray-scale to Canny Image}
+\end{figure}
+Remove top three fifth in order to remove the environmental background details like sky trees hills mountain building etc.\\
+Imagine and create a central triangular structure displaying the lane as it is region of our interest.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{citoroi.png}
+	\caption{Canny vs Segmented Canny Image (Region of Interest)}
+\end{figure}
+Apply Houghline transformation for edge detection and detect lane on which we are driving.
+
+\subsubsection{OpenCV}
+OpenCV-Python is a library of Python bindings designed to solve computer vision problems.\\
+OpenCV is a vast library that helps in providing various functions for image and video operations. With OpenCV, we can capture a video from the camera. It lets you create a video capture object which is helpful to capture videos through webcam and then you may perform desired operations on that video.\\\\
+Steps to capture a video:\\
+Use cv2.VideoCapture() to get a video capture object for the camera.
+Set up an infinite while loop and use the read() method to read the frames using the above created object.\\
+Use cv2.imshow() method to show the frames in the video.
+Breaks the loop when the user clicks a specific key.
+
+\subsubsection{NumPy}
+Numpy is a library for the Python programming language, adding support for large, multi-dimensional arrays and matrices, along with a large collection of high-level mathematical functions to operate on these arrays. The ancestor of NumPy, Numeric, was originally created by Jim Hugunin with contributions from several other developers. In 2005, Travis Oliphant created NumPy by incorporating features of the competing Numarray into Numeric, with extensive modifications. NumPy is open-source software and has many contributors.\\
+NumPy is the fundamental package for scientific computing with Python.Besides its obvious scientific uses, NumPy can also be used as an efficient multi-dimensional container of generic data. Arbitrary data-types can be defined. This allows NumPy to seamlessly and speedily integrate with a wide variety of databases.
+
+\subsubsection{Gaussian Filtering}
+In this approach, instead of a box filter consisting of equal filter coefficients, a Gaussian kernel is used. It is done with the function, cv2.GaussianBlur(). We should specify the width and height of the kernel which should be positive and odd. We also should specify the standard deviation in the X and Y directions, sigmaX and sigmaY respectively. If only sigmaX is specified, sigmaY is taken as equal to sigmaX. If both are given as zeros, they are calculated from the kernel size. Gaussian filtering is highly effective in removing Gaussian noise from the image.\\ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{gaussblurr.jpg}
+	\caption{Gauusian Blurr}
+\end{figure}
+The Hough Transform is a method that is used in image processing to detect any shape, if that shape can be represented in mathematical form. It can detect the shape even if it is broken or distorted a little bit.\\
+We will see how Hough Transform works for line detection using the HoughLine Transform method. To apply the Houghline method, first an edge detection of the specific image is desirable.\\ \\
+A line can be represented as
+\begin{equation} 
+y = mx + c
+\end{equation} or in parametric form, as
+\begin{equation}
+r = x\cos\theta + y\sin\theta
+\end{equation}  
+where r is the perpendicular distance from origin to the line, and $\theta$ is the angle formed by this perpendicular line and horizontal axis measured in counter-clockwise (That direction varies on how you represent the coordinate system. This representation is used in OpenCV). So any line can be represented in these two terms (r, $\theta$).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{del.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{tel.jpeg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+
+
+

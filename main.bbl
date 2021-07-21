@@ -1,0 +1,895 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{neil2012s}{article}{}
+    \name{author}{1}{}{%
+      {{hash=ND}{%
+         family={Neil},
+         familyi={N\bibinitperiod},
+         given={Dan},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ND1}
+    \strng{fullhash}{ND1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Who's Behind the Wheel? Nobody. The driverless car is coming.
+  And we all should be glad it is}
+    \field{volume}{24}
+    \field{journaltitle}{Wall Street Journal (Online)[New York, NY] Sep}
+    \field{year}{2012}
+  \endentry
+
+  \entry{liden2017driverless}{article}{}
+    \name{author}{1}{}{%
+      {{hash=LD}{%
+         family={Liden},
+         familyi={L\bibinitperiod},
+         given={D},
+         giveni={D},
+      }}%
+    }
+    \strng{namehash}{LD1}
+    \strng{fullhash}{LD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{What Is a Driverless Car?[on-line]}
+    \field{journaltitle}{El{\'e}rhet{\H{o}}s{\'e}g: http://www. wisegeek.
+  com/what-is-a-driverless-car. htm[Let{\"o}ltve: 2018.04. 02.]}
+    \field{year}{2017}
+  \endentry
+
+  \entry{szikora2017self}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=SP}{%
+         family={Szikora},
+         familyi={S\bibinitperiod},
+         given={P{\'e}ter},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=MN}{%
+         family={Madar{\'a}sz},
+         familyi={M\bibinitperiod},
+         given={Nikolett},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{SPMN1}
+    \strng{fullhash}{SPMN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2017 IEEE 14th International Scientific Conference on
+  Informatics}
+    \field{pages}{383\bibrangedash 387}
+    \field{title}{Self-driving cars—The human side}
+    \field{year}{2017}
+  \endentry
+
+  \entry{basu2019driverless}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BC}{%
+         family={Basu},
+         familyi={B\bibinitperiod},
+         given={Choton},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=MM}{%
+         family={Madan},
+         familyi={M\bibinitperiod},
+         given={Manu},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Sankaranarayanan},
+         familyi={S\bibinitperiod},
+         given={Balaji},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BCMMSB1}
+    \strng{fullhash}{BCMMSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{4}
+    \field{title}{ARE DRIVERLESS CARS TRULY A REALITY? A TECHNICAL, SOCIAL AND
+  ETHICAL ANALYSIS.}
+    \field{volume}{20}
+    \field{journaltitle}{Issues in Information Systems}
+    \field{year}{2019}
+  \endentry
+
+  \entry{howley2012race}{article}{}
+    \name{author}{1}{}{%
+      {{hash=HD}{%
+         family={Howley},
+         familyi={H\bibinitperiod},
+         given={DP},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HD1}
+    \strng{fullhash}{HD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{The Race to Build Self-Driving Cars}
+    \field{journaltitle}{Forr{\'a}s: Laptop Magazine: http://blog. laptopmag.
+  com/high-tech-cars-go-mainstream-self-driving-in-car-radar-more}
+    \field{year}{2012}
+  \endentry
+
+  \entry{schoettle2015motorists}{report}{}
+    \name{author}{2}{}{%
+      {{hash=SB}{%
+         family={Schoettle},
+         familyi={S\bibinitperiod},
+         given={Brandon},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Sivak},
+         familyi={S\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SBSM1}
+    \strng{fullhash}{SBSM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Motorists' preferences for different levels of vehicle
+  automation}
+    \list{institution}{1}{%
+      {University of Michigan, Ann Arbor, Transportation Research Institute}%
+    }
+    \field{type}{techreport}
+    \field{year}{2015}
+  \endentry
+
+  \entry{blain2017self}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BL}{%
+         family={Blain},
+         familyi={B\bibinitperiod},
+         given={Loz},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BL1}
+    \strng{fullhash}{BL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Self-driving vehicles: What are the six levels of autonomy?}
+    \field{journaltitle}{Forr{\'a}s: Newatlas. com: http://newatlas.
+  com/sae-autonomous-levels-definition-self-driving/49947}
+    \field{year}{2017}
+  \endentry
+
+  \entry{lecun1989backpropagation}{article}{}
+    \name{author}{7}{}{%
+      {{hash=LY}{%
+         family={LeCun},
+         familyi={L\bibinitperiod},
+         given={Yann},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=BB}{%
+         family={Boser},
+         familyi={B\bibinitperiod},
+         given={Bernhard},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=DJS}{%
+         family={Denker},
+         familyi={D\bibinitperiod},
+         given={John\bibnamedelima S},
+         giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Henderson},
+         familyi={H\bibinitperiod},
+         given={Donnie},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=HRE}{%
+         family={Howard},
+         familyi={H\bibinitperiod},
+         given={Richard\bibnamedelima E},
+         giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=HW}{%
+         family={Hubbard},
+         familyi={H\bibinitperiod},
+         given={Wayne},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=JLD}{%
+         family={Jackel},
+         familyi={J\bibinitperiod},
+         given={Lawrence\bibnamedelima D},
+         giveni={L\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MIT Press}%
+    }
+    \strng{namehash}{LY+2}
+    \strng{fullhash}{LYBBDJSHDHREHWJLD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{4}
+    \field{pages}{541\bibrangedash 551}
+    \field{title}{Backpropagation applied to handwritten zip code recognition}
+    \field{volume}{1}
+    \field{journaltitle}{Neural computation}
+    \field{year}{1989}
+  \endentry
+
+  \entry{krizhevsky2012imagenet}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=KA}{%
+         family={Krizhevsky},
+         familyi={K\bibinitperiod},
+         given={Alex},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SI}{%
+         family={Sutskever},
+         familyi={S\bibinitperiod},
+         given={Ilya},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=HGE}{%
+         family={Hinton},
+         familyi={H\bibinitperiod},
+         given={Geoffrey\bibnamedelima E},
+         giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KASIHGE1}
+    \strng{fullhash}{KASIHGE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Advances in neural information processing systems}
+    \field{pages}{1097\bibrangedash 1105}
+    \field{title}{Imagenet classification with deep convolutional neural
+  networks}
+    \field{year}{2012}
+  \endentry
+
+  \entry{jackel1995optical}{article}{}
+    \name{author}{5}{}{%
+      {{hash=JLD}{%
+         family={Jackel},
+         familyi={J\bibinitperiod},
+         given={Lawrence\bibnamedelima D},
+         giveni={L\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Sharman},
+         familyi={S\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SCE}{%
+         family={Stenard},
+         familyi={S\bibinitperiod},
+         given={Charles\bibnamedelima E},
+         giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=SBI}{%
+         family={Strom},
+         familyi={S\bibinitperiod},
+         given={B\bibnamedelima Ivan},
+         giveni={B\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+      {{hash=ZD}{%
+         family={Zuckert},
+         familyi={Z\bibinitperiod},
+         given={Derek},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wiley Online Library}%
+    }
+    \strng{namehash}{JLD+1}
+    \strng{fullhash}{JLDSDSCESBIZD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{4}
+    \field{pages}{16\bibrangedash 24}
+    \field{title}{Optical character recognition for self-service banking}
+    \field{volume}{74}
+    \field{journaltitle}{AT\&T technical journal}
+    \field{year}{1995}
+  \endentry
+
+  \entry{berg2010large}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BA}{%
+         family={Berg},
+         familyi={B\bibinitperiod},
+         given={Alex},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=DJ}{%
+         family={Deng},
+         familyi={D\bibinitperiod},
+         given={Jia},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FFL}{%
+         family={Fei-Fei},
+         familyi={F\bibinithyphendelim F\bibinitperiod},
+         given={L},
+         giveni={L},
+      }}%
+    }
+    \strng{namehash}{BADJFFL1}
+    \strng{fullhash}{BADJFFL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Large scale visual recognition challenge (ILSVRC), 2010}
+    \field{volume}{3}
+    \field{journaltitle}{URL http://www. image-net. org/challenges/LSVRC}
+    \field{year}{2010}
+  \endentry
+
+  \entry{lecun2004dave}{article}{}
+    \name{author}{5}{}{%
+      {{hash=LY}{%
+         family={Lecun},
+         familyi={L\bibinitperiod},
+         given={Y},
+         giveni={Y},
+      }}%
+      {{hash=CE}{%
+         family={Cosatto},
+         familyi={C\bibinitperiod},
+         given={E},
+         giveni={E},
+      }}%
+      {{hash=BJ}{%
+         family={Ben},
+         familyi={B\bibinitperiod},
+         given={J},
+         giveni={J},
+      }}%
+      {{hash=MU}{%
+         family={Muller},
+         familyi={M\bibinitperiod},
+         given={U},
+         giveni={U},
+      }}%
+      {{hash=FB}{%
+         family={Flepp},
+         familyi={F\bibinitperiod},
+         given={B},
+         giveni={B},
+      }}%
+    }
+    \strng{namehash}{LY+1}
+    \strng{fullhash}{LYCEBJMUFB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Dave: Autonomous off-road vehicle control using end-to-end
+  learning}
+    \field{journaltitle}{Courant Institute/CBLL, http://www. cs. nyu.
+  edu/yann/research/dave/index. html, Tech. Rep. DARPA-IPTO Final Report}
+    \field{year}{2004}
+  \endentry
+
+  \entry{pomerleau1989alvinn}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=PDA}{%
+         family={Pomerleau},
+         familyi={P\bibinitperiod},
+         given={Dean\bibnamedelima A},
+         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PDA1}
+    \strng{fullhash}{PDA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Advances in neural information processing systems}
+    \field{pages}{305\bibrangedash 313}
+    \field{title}{Alvinn: An autonomous land vehicle in a neural network}
+    \field{year}{1989}
+  \endentry
+
+  \entry{bojarski2016end}{article}{}
+    \true{moreauthor}
+    \true{morelabelname}
+    \name{author}{10}{}{%
+      {{hash=BM}{%
+         family={Bojarski},
+         familyi={B\bibinitperiod},
+         given={Mariusz},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=DTD}{%
+         family={Del\bibnamedelima Testa},
+         familyi={D\bibinitperiod\bibinitdelim T\bibinitperiod},
+         given={Davide},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=DD}{%
+         family={Dworakowski},
+         familyi={D\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FB}{%
+         family={Firner},
+         familyi={F\bibinitperiod},
+         given={Bernhard},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=FB}{%
+         family={Flepp},
+         familyi={F\bibinitperiod},
+         given={Beat},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GP}{%
+         family={Goyal},
+         familyi={G\bibinitperiod},
+         given={Prasoon},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=JLD}{%
+         family={Jackel},
+         familyi={J\bibinitperiod},
+         given={Lawrence\bibnamedelima D},
+         giveni={L\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=MM}{%
+         family={Monfort},
+         familyi={M\bibinitperiod},
+         given={Mathew},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MU}{%
+         family={Muller},
+         familyi={M\bibinitperiod},
+         given={Urs},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=ZJ}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Jiakai},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BM+1}
+    \strng{fullhash}{BMDTDDDFBFBGPJLDMMMUZJ+1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{End to end learning for self-driving cars}
+    \field{journaltitle}{arXiv preprint arXiv:1604.07316}
+    \field{year}{2016}
+  \endentry
+
+  \entry{wang2001trajectory}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=WD}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Danwei},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=QF}{%
+         family={Qi},
+         familyi={Q\bibinitperiod},
+         given={Feng},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{WDQF1}
+    \strng{fullhash}{WDQF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{Proceedings 2001 ICRA. IEEE International Conference on
+  Robotics and Automation (Cat. No. 01CH37164)}
+    \field{pages}{3320\bibrangedash 3325}
+    \field{title}{Trajectory planning for a four-wheel-steering vehicle}
+    \field{volume}{4}
+    \field{year}{2001}
+  \endentry
+
+  \entry{6033395}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=SJ}{%
+         family={{Stallkamp}},
+         familyi={S\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={{Schlipsing}},
+         familyi={S\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={{Salmen}},
+         familyi={S\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=IC}{%
+         family={{Igel}},
+         familyi={I\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SJ+1}
+    \strng{fullhash}{SJSMSJIC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{The 2011 International Joint Conference on Neural
+  Networks}
+    \field{pages}{1453\bibrangedash 1460}
+    \field{title}{The German Traffic Sign Recognition Benchmark: A multi-class
+  classification competition}
+    \field{year}{2011}
+  \endentry
+
+  \entry{649946}{article}{}
+    \name{author}{4}{}{%
+      {{hash=dA}{%
+         family={{de la Escalera}},
+         familyi={d\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MLE}{%
+         family={{Moreno}},
+         familyi={M\bibinitperiod},
+         given={L.\bibnamedelima E.},
+         giveni={L\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=SMA}{%
+         family={{Salichs}},
+         familyi={S\bibinitperiod},
+         given={M.\bibnamedelima A.},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=AJM}{%
+         family={{Armingol}},
+         familyi={A\bibinitperiod},
+         given={J.\bibnamedelima M.},
+         giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{dA+1}
+    \strng{fullhash}{dAMLESMAAJM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{6}
+    \field{pages}{848\bibrangedash 859}
+    \field{title}{Road traffic sign detection and classification}
+    \field{volume}{44}
+    \field{journaltitle}{IEEE Transactions on Industrial Electronics}
+    \field{year}{1997}
+  \endentry
+
+  \entry{hedlund2017autonomous}{article}{}
+    \name{author}{1}{}{%
+      {{hash=HJ}{%
+         family={Hedlund},
+         familyi={H\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HJ1}
+    \strng{fullhash}{HJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Autonomous vehicles meet human drivers: Traffic safety issues
+  for states}
+    \field{year}{2017}
+  \endentry
+
+  \entry{8575857}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=CL}{%
+         family={{Chen}},
+         familyi={C\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=ZG}{%
+         family={{Zhao}},
+         familyi={Z\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=ZJ}{%
+         family={{Zhou}},
+         familyi={Z\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KL}{%
+         family={{Kuang}},
+         familyi={K\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CL+1}
+    \strng{fullhash}{CLZGZJKL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2017 4th IAPR Asian Conference on Pattern Recognition
+  (ACPR)}
+    \field{pages}{399\bibrangedash 404}
+    \field{title}{Real-Time Traffic Sign Classification Using Combined
+  Convolutional Neural Networks}
+    \field{year}{2017}
+  \endentry
+
+  \entry{angelov2018practical}{article}{}
+    \name{author}{4}{}{%
+      {{hash=AA}{%
+         family={Angelov},
+         familyi={A\bibinitperiod},
+         given={Aleksandar},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=RA}{%
+         family={Robertson},
+         familyi={R\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MSR}{%
+         family={Murray-Smith},
+         familyi={M\bibinithyphendelim S\bibinitperiod},
+         given={Roderick},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=FF}{%
+         family={Fioranelli},
+         familyi={F\bibinitperiod},
+         given={Francesco},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IET}%
+    }
+    \strng{namehash}{AA+1}
+    \strng{fullhash}{AARAMSRFF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{number}{10}
+    \field{pages}{1082\bibrangedash 1089}
+    \field{title}{Practical classification of different moving targets using
+  automotive radar and deep neural networks}
+    \field{volume}{12}
+    \field{journaltitle}{IET Radar, Sonar \& Navigation}
+    \field{year}{2018}
+  \endentry
+
+  \entry{lu2017much}{article}{}
+    \name{author}{3}{}{%
+      {{hash=LZ}{%
+         family={Lu},
+         familyi={L\bibinitperiod},
+         given={Zhenji},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=CX}{%
+         family={Coster},
+         familyi={C\bibinitperiod},
+         given={Xander},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=dWJ}{%
+         prefix={de},
+         prefixi={d\bibinitperiod},
+         family={Winter},
+         familyi={W\bibinitperiod},
+         given={Joost},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{LZCXWJd1}
+    \strng{fullhash}{LZCXWJd1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{pages}{293\bibrangedash 304}
+    \field{title}{How much time do drivers need to obtain situation awareness?
+  A laboratory-based study of automated driving}
+    \field{volume}{60}
+    \field{journaltitle}{Applied ergonomics}
+    \field{year}{2017}
+  \endentry
+
+  \entry{8345542}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=KJ}{%
+         family={{Kocić}},
+         familyi={K\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=JN}{%
+         family={{Jovičić}},
+         familyi={J\bibinitperiod},
+         given={N.},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=DV}{%
+         family={{Drndarević}},
+         familyi={D\bibinitperiod},
+         given={V.},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KJJNDV1}
+    \strng{fullhash}{KJJNDV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2018 17th International Symposium INFOTEH-JAHORINA
+  (INFOTEH)}
+    \field{pages}{1\bibrangedash 5}
+    \field{title}{Driver behavioral cloning using deep learning}
+    \field{year}{2018}
+  \endentry
+
+  \entry{farag2018behavior}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=FW}{%
+         family={Farag},
+         familyi={F\bibinitperiod},
+         given={Wael},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=SZ}{%
+         family={Saleh},
+         familyi={S\bibinitperiod},
+         given={Zakaria},
+         giveni={Z\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{FWSZ1}
+    \strng{fullhash}{FWSZ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2018 International Conference on Innovation and
+  Intelligence for Informatics, Computing, and Technologies (3ICT)}
+    \field{pages}{1\bibrangedash 7}
+    \field{title}{Behavior Cloning for Autonomous Driving using Convolutional
+  Neural Networks}
+    \field{year}{2018}
+  \endentry
+
+  \entry{4153054}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=KR}{%
+         family={{Kulic}},
+         familyi={K\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=VZ}{%
+         family={{Vukic}},
+         familyi={V\bibinitperiod},
+         given={Z.},
+         giveni={Z\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KRVZ1}
+    \strng{fullhash}{KRVZ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{IECON 2006 - 32nd Annual Conference on IEEE Industrial
+  Electronics}
+    \field{pages}{3939\bibrangedash 3944}
+    \field{title}{Autonomous Vehicle Obstacle Avoiding and Goal Position
+  Reaching by Behavioral Cloning}
+    \field{year}{2006}
+  \endentry
+
+  \entry{buyval2018realtime}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=BA}{%
+         family={Buyval},
+         familyi={B\bibinitperiod},
+         given={Alexander},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=GA}{%
+         family={Gabdullin},
+         familyi={G\bibinitperiod},
+         given={Aidar},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Mustafin},
+         familyi={M\bibinitperiod},
+         given={Ruslan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SI}{%
+         family={Shimchik},
+         familyi={S\bibinitperiod},
+         given={Ilya},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{BA+1}
+    \strng{fullhash}{BAGAMRSI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2018 IEEE International Conference on Robotics and
+  Automation (ICRA)}
+    \field{pages}{2064\bibrangedash 2069}
+    \field{title}{Realtime vehicle and pedestrian tracking for didi udacity
+  self-driving car challenge}
+    \field{year}{2018}
+  \endentry
+
+  \entry{arentz2017driving}{article}{}
+    \name{author}{1}{}{%
+      {{hash=AE}{%
+         family={Arentz},
+         familyi={A\bibinitperiod},
+         given={Elizabeth},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {HeinOnline}%
+    }
+    \strng{namehash}{AE1}
+    \strng{fullhash}{AE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{pages}{221}
+    \field{title}{Driving Miss Lazy: Autonomous Vehicles, Industry and the Law}
+    \field{volume}{12}
+    \field{journaltitle}{Ohio St. Bus. LJ}
+    \field{year}{2017}
+  \endentry
+\enddatalist
+\endinput

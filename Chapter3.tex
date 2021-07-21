@@ -1,0 +1,364 @@
+\chapter{Deep Learning Training }
+
+\section{Deep Learning training using  Convolution Neural Network (Nvidia model)}
+{\textbf{Packages used :}}
+OS, NumPy, MatPlotLib, Keras, sklearn, imgaug, cv2, pandas, ntpath, random, etc.
+
+Using an open-source self driving car simulator we collected a descent size of dataset consisting of images and label csv file while training the model.
+
+\subsection{Introduction to Deep Learning for Autonomous Vehicle}
+\subsubsection{Network Architecture}
+We train the weights of our network to minimize the mean squared error(MSE) between the steering command output by the network and the command of either the simulation driver, or the adjusted steering command for off-center and rotated images. Our network architecture is shown in Figure 3.1. The network consists of 9 layers, including a normalization layer, 5 convolutional layers and 3 fully connected layers. The input image is split into YUV planes and passed to the network. The first layer of the network performs image normalization. The normalizer is hard-coded and is not adjusted in the learning process. Performing normalization in the network allows the normalization scheme to be altered with the network architecture and to be accelerated via GPU processing. The convolutional layers were designed to perform feature extraction and were chosen empirically through a series of experiments that varied layer configurations. We use strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel and a non-strided convolution with a 3×3 kernel size in the last two convolutional layers. We follow the five convolutional layers with three fully connected layers leading to an output control value which is the inverse turning radius. The fully connected layers are designed to function as a controller for steering, but we note that by training the system end-to-end, it is not possible to make a clean break between which parts of the network function primarily as feature extractor and which serve as controller.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{nvidiamodel.jpg}
+	\caption{Architecture of NVIDIA Model}
+\end{figure}
+\subsection{Training Details }
+\subsubsection{Data Selection}
+
+The first step to training a neural network is selecting the frames to use. Our collected data is labeled with road type, weather condition, and the driver’s activity (staying in a lane, switching lanes, turning, and so forth). To train a CNN to do lane following we only select data where the driver was staying in a lane and discard the rest. We then sample that video at 10 FPS. A higher sampling rate would result in including images that are highly similar and thus not provide much useful information.To remove a bias towards driving straight the training data includes a higher proportion of frames that represent road curves and we have reduced the proportion of driving  straight along a road in the training data. 
+\subsubsection{Algorithm}
+\begin{enumerate}
+	\item Backpropagation Training Algorithm	
+\end{enumerate}
+\subsection{Backpropagation}
+In Machine Learning/Deep Learning, Backpropagation is a widely used algorithm in training Feed Forward Neural Networks for Supervised Learning. Generalizations of backpropagation exist for other artificial neural networks (ANNs) and for functions generally – a class of algorithms referred to generically as "backpropagation". In fitting a neural network, backpropagation computes the gradient of the loss function with respect to the weights of the network for a single input–output example, and does so efficiently, unlike a naive direct computation of the gradient with respect to each weight individually. This efficiency makes it feasible to use gradient methods for training multilayer networks, updating weights to minimize loss; gradient descent, or variants such as stochastic gradient descent, are commonly used. The backpropagation algorithm works by computing the gradient of the loss function with respect to each weight by the chain rule, computing the gradient one layer at a time, iterating backward from the last layer to avoid redundant calculations of intermediate terms in the chain rule; this is an example of dynamic programming.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{bp.jpg}
+	\caption{Backpropagation Training.}
+\end{figure}
+
+The term backpropagation strictly refers only to the algorithm for computing the gradient, not how the gradient is used; but the term is often used loosely to refer the entire learning algorithm, including how the gradient is used, such as by stochastic gradient descent. Backpropagation generalizes the gradient computation in the delta rule, which is the single-layer version of backpropagation, and is in turn generalized by automatic differentiation, where backpropagation is a special case of reverse accumulation (or "reverse mode"). The term backpropagation and its general use in neural networks was announced in Rumelhart, Hinton \& Williams (1986a), then elaborated and popularized in Rumelhart, Hinton \& Williams (1986b), but the technique was independently rediscovered many times, and had many predecessors dating to the 1960s.
+
+\subsection{Objective}
+The general idea here is to gather training data by driving the car in simulator, then train the Deep Neural Network with that data, and in the end let the car be driven by the model generated by the deep neural network.\\
+We have used an open-source self driving car simulator namely “Udacity’s Self Driving Car Simulator” to train our car by gathering image data during training since it is a deep learning project and use the training data to teach our car to drive autonomously on other background environmental conditions/ roads.\\
+
+Deep Learning is one of ways to make autonomous driving possible. Here we used Nvidia’s “End to End Learning for Self-Driving Cars” network. We used Udacity’s Self-Driving Car Simulator to do this. Udacity built this simulator for their Self-Driving Car Nanodegree and have now open-sourced it. It was built using Unity. Unity is a cross-platform game engine developed by Unity Technologies, which is primarily used to develop both three-dimensional and two-dimensional video games and simulations for computers, consoles and mobile devices.\\\\
+There are 3 parts to the whole process:
+\begin{itemize}
+	\item Data Generation for the Autonomous System
+	\item Training the Autonomous System
+	\item Testing the Autonomous System
+\end{itemize}
+
+\subsubsection{Data Generation for the Autonomous System}
+This part is inspired by Nvidia’s Self-Driving Car’s data collection process. They attached 3 cameras to a car. One is placed in the center and the other 2 are placed on each side of the car. They recorded the steering wheel’s data- capturing the steering angle. So, in our process, we are going to capture:\\\\
+$\to$ Images from Center, Left and Right Cameras.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ll.jpg}
+	\caption{Image from left dash-board camera.}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{cc.jpg}
+	\caption{Image from center dash-board camera.}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{rr.jpg}
+	\caption{Image from right dash-board camera.}
+\end{figure}
+.\\
+$\to$ Steering Angle.\\
+$\to$ Speed of the car.\\
+$\to$ Throttle.\\
+$\to$ Brake.\\
+These recorded values are stored in a CSV file.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{csv.png}
+	\caption{Sample part of the driving\_log.csv file}
+\end{figure}
+Here is a table attached :
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline
+		$Sl No$ & $center$ & $left$ & $right$ & $steer$ & $throttle$ & $reverse$ & $speed$\\
+		\hline
+		1 & c\_20\_01.jpg & l\_20\_01.jpg & r\_20\_01.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		2 & c\_20\_02.jpg & l\_20\_02.jpg & r\_20\_02.jpg & 0.0 & 0.0 & 0 & 0.000079 \\
+		\hline
+		3 & c\_20\_03.jpg & l\_20\_03.jpg & r\_20\_03.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		4 & c\_20\_04.jpg & l\_20\_04.jpg & r\_20\_04.jpg & 0.0 & 0.0 & 0 & 0.000080 \\
+		\hline
+		5 & c\_20\_05.jpg & l\_20\_05.jpg & r\_20\_05.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		6 & c\_20\_06.jpg & l\_20\_06.jpg & r\_20\_06.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		7 & c\_20\_07.jpg & l\_20\_07.jpg & r\_20\_07.jpg & 0.0 & 0.0 & 0 & 0.000079 \\
+		\hline
+		8 & c\_20\_08.jpg & l\_20\_08.jpg & r\_20\_08.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		9 & c\_20\_09.jpg & l\_20\_09.jpg & r\_20\_09.jpg & 0.0 & 0.0 & 0 & 0.000080 \\
+		\hline
+		10 & c\_20\_10.jpg & l\_20\_10.jpg & r\_20\_10.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		11 & c\_20\_11.jpg & l\_20\_11.jpg & r\_20\_11.jpg & 0.0 & 0.0 & 0 & 0.000078 \\
+		\hline
+		12 & c\_20\_12.jpg & l\_20\_12.jpg & r\_20\_12.jpg & 0.0 & 0.0 & 0 & 0.000079 \\
+		\hline
+	\end{tabular}
+	\caption{Visual Sample of driving\_log.csv Table}
+\end{table}
+
+High-level view of the Nvidia’s data collection system
+The steering wheel is attached to the system via the Controller Area Network(CAN) to feed the value of steering wheel, throttle, break. The cameras are also connect to the system where they are feeding in continuous stream~\cite{angelov2018practical} of video data. The system is called Nvidia Drive PX- Nvidia Drive is a AI platform that allows the users to build and deploy self-driving cars, trucks and shuttles. It combines deep learning, sensor fusion, and surround vision to change the driving experience. A Solid State Drive is used to store all the data that is collected. The Udacity’s Self Driving Car simulator mimics the same.\\
+We can find the simulator here.\\\\
+The simulator has 2 modes -
+
+$\to$ Training mode,
+ 
+$\to$ and Autonomous mode.
+\subsubsection{Training mode}
+In the training mode, the simulator captures the images from 3 cameras, speed value, throttle value, brake, and steering angle. We have to click on the record icon on the top right of the screen to start the recording.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{train1.png}
+	\caption{Training Mode on Simulator}
+\end{figure}
+
+\subsubsection{Autonomous mode}
+In this mode the simulator acts as a server and the python script acts as client. \\\\
+{\textbf{Training the Autonomous System}}
+The data collected during the Data Generation part involved collecting all the camera images, steering angle and others while a human driver was driving the car. We trained a model that clones how the human was driving the car- essentially clones the driver’s behaviour to different road scenarios. This is called Behavioural Cloning. To formally define it- Behavioural cloning is a method by which human sub-cognitive skills can be captured and reproduced in a computer program.\\\\
+This is further discussed in detail in Chapter 4.\\
+The autonomous mode looks like this:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{sc8.jpeg}
+	\caption{Autonomous Mode on Simulator}
+\end{figure}
+
+To formally define its Behavioural cloning, it is a method by which human sub-cognitive skills can be captured and reproduced in a computer program.
+
+\subsubsection{Training the Neural Network}
+The images captured from the 3 cameras are randomly shifted and rotated and then fed into the Neural Network. Based on these inputs, the Neural Network would output a single value- the steering angle. Essentially, based on the input images, the Neural Neural decides by what angle the car must be steered. This output value is compared with the steering data collected from human driving to compute the error in the Neural Network’s decision. With this error, the model uses Backpropogation algorithm to optimize the parameter (weights) of the model to reduce this error.\\
+
+We will use Nvidia’s Convolutional Neural Network(CNN) architecture.(The network consists of 9 layers- a normalization layer, 5 convolutional layers and 3 fully connected layers. The input image is converted to YUV. The first layer normalises the image. The normalisation values are hardcoded and it is not trainable. The convolutional layers perform feature extraction. The 1st 3 layers use strided convolutions with a 5×5 kernel, and the last 2 convolutional layer use non-strided convolution with a 3×3 kernel size. The convolutional layers are followed by 3 fully connected layers. The fully connected layers are supposed to act as a controller for the Autonomous system. But, given the end-to-end learning of the whole network, it is hard to say if the fully connected layers are the ones solely responsible for the controller.)
+
+\subsubsection{Testing the Autonomous System}
+The testing happens using only the center camera images. The center camera input is fed to the Neural Network, the Neural Network ouputs the steering angle value, this value is fed to the Autonomous car. The Udacity’s Self Driving Car simulator follows the Server-Client architecture as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{snc.jpg}
+	\caption{Simulator(Server) - Neural Network(Client)}
+\end{figure}
+
+The server will be the simulator and the client would be the Neural Network, or rather the Python program. This whole process is a cyclic feedback loop. The simulator outputs the images, the python program analyses it and outputs the steering angle and the throttle. The simulator receives this and turns the car accordingly. And the whole process goes on cyclically.This is further discussed in detail in chapter 5.
+
+
+\subsubsection{The project goals and pipeline}
+The main task of the project is to build a Convolutional Neural Network using Keras library in Python. A very important step is to properly collect data in simulator by recording correct driving and recovery driving. After preprocessing the data and training the model, we should check if we are able to use it to drive a car without leaving the road.\\\\
+Steps of this project:\\
+1.	Collect video data of driving behavior using simulator\\
+2.	Preprocess the data\\
+3.	Choose a CNN model and create it in Keras\\
+4.	Train and validate the model\\
+5.	Verify if the model predicts correct angles during autonomous driving.
+
+\subsubsection{Data collection}
+Below, there is a short excerpt from my data collection process. According to recommendations from the Udacity course and other participants, it consists of two modes of driving:
+\begin{itemize}
+	\item Good driving - teaching the model how to drive properly around the track
+	\item Recovery driving - teaching the model how to recover from situations when the car is on a side of the road
+\end{itemize}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgex.jpg}
+	\caption{Sample of original images from data set with steering angles}
+\end{figure}
+
+The recorded data, which will be used to feed the neural network, is composed of:
+set of video frames and corresponding steering angles
+
+After training, the model will be able to predict the angle having the image on it's input.\\
+It turned out that the data obtained from the recovery mode is even more important for the Behavioral Cloning project. From the "good driving" dataset most of the samples contain steering angle equal to 0. Having collected the "recovery driving" we gain valuable information about non-zero steering angles. Thanks to such data, the model would learn how to quickly apply bigger steering angle when vehicle is suddenly off the track. Even if the model is not perfectly tuned and the car will wobble right and left in autonomous mode, there is a higher chance that we can successfully pass challenging turns on track.\\
+Below, there are random frames from training set with corresponding steering angles. Applied steering is normalized to (-1, 1) range.
+
+
+Additionally, in the Udacity simulator, it was possible to use images from three cameras. They are "mounted" in a row, with some distance from each other. So, images from them differed slightly. Below, you can see frames from left and right camera taken at the same moment.\\ The idea behind this is to collect more samples and diversify them.\\ During autonomous mode, images fetched into model input will come from the central camera only. That means that we should add a certain angle shift to frames from left and right camera.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{leftright.jpg}
+	\caption{Images from left and right dash-board cameras.}
+\end{figure}
+
+
+In the shown example, we can see that a vehicle is turning left. For the angle corresponding to image from the right camera, we should subtract some value. It's because when we will see such image in auto mode (using central camera), we should expect an answer from the model: Turn a bit more to the left. It's working the opposite in the left camera images.\\\\
+From each sample from data collection, we picked randomly one of three images from available cameras - applying a relevant angle shift if needed. In total, 3 laps were used for further processing.
+
+
+\subsubsection{Training data analysis}
+Udacity has already offered some pre-recorded laps, but we have decided to play around with simulator ourselves. So we have recorded 3 laps for each direction of the track. Both directions are needed in order to avoid the bias of the deep neural net towards turning to the left side of the road.\\
+The recording resulted in 14919 captured images. Images contain captured data from three cameras on the car: left, center and right.\\
+Captured images from left, center and right camera from the car.\\
+For the training purposes we have used only center camera which proved to be enough for getting very decent end-results. In order to make the model more general, it is advised to use all three cameras for car to be able to handle scenarios for getting back to the center of the track better.\\\\
+The below image shows the steering angle distribution :\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{strd.png}
+	\caption{Steering Angle Distribution.}
+\end{figure}
+When using multiple cameras, it is important to remember that steering angle needs to be adjusted properly with a constant for both left and right camera.\\\\
+{\textbf{Multiple camera capturing}}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{mcc.png}
+	\caption{Multiple camera setup on dashboard to collect data}
+\end{figure}
+The training data also contains CSV file which contains time stamped image captures together with steering angle, throttle, break and speed.
+
+CSV file contains the metadata from the training data
+Since the training data contains laps in both track directions, the steering angle is not biased:
+
+80\% of the data is intended to be used for training and 20\% for validation. All the training data can be found here.
+
+\subsubsection{Data pre processing}
+As in any Machine Learning project it's crucial to preprocess our data, e.g. by data augmentation, cleaning, transformation or dimensionality reduction. It can significantly help to train the model. Let's visualize some properties of our dataset, clean it a bit and then produce more samples of desired properties. Generating more samples from existing ones can be helpful if we don't have large enough dataset. But it also can prevent overfitting because during generation of new samples we can add image shifts, translations, shadows etc. The data is more diverse and could be potentially used for more "unseen" situations.
+
+\subsubsection{Data cleaning}
+After drawing a histogram of steering angles for all collected samples, one conclusion comes straightaway. Although we did a "recovery driving" there is still a huge number of samples with angles close to 0. This could bias the model towards predicting 0 angle. To improve this situation we rejected about 85\% of samples whose steering angle is really close to 0. Below, there are histograms of training samples before and after this operation:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{11.png}
+	\caption{Histogram of original data-set}
+\end{figure}
+We can see that there are still many 0 angles among the samples but it's significantly lower value than before.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{12.png}
+	\caption{Histogram of data-set after reducing 0 angle steering images}
+\end{figure}
+
+\subsubsection{Data augmentation}
+On the latter histogram we can now observe that for larger steering angles (let's say, angle $>$ 0.25), most of them are on the left side of the chart. It means that, during samples collection, vehicle turned left more than turned right. It's justified as the circuit in the simulator is anti-clockwise. Again, we don't want to bias the model towards negative angles in this case. The remedy is to flip some of the samples. It means flipping an image horizontally and changing the sign of corresponding steering angle. We did it for randomly chosen 50\% of samples.
+
+\subsubsection{Correction Factor:}
+ Infact we need to introduce a correction factor that we will add in the images taken from left dashboard camera and a correction factor that we will subtract in the images taken from right dashboard camera in order to keep our vehicle in the center. So, lets suppose our steering correction angle is 0.2. So in case of left images\\
+steering angle = steering angle + 0.2\\
+and in case of right images\\
+steering angle = steering angle - 0.2
+
+\subsubsection{Flipping:}
+ That was the first step of data pre processing. Moving on, what else can be done to generate more data. We can flip images horizontally and negate the corresponding steering angle to get an altogether different record.So that means by 1 record in csv we are able to generate 6 different records. One for center, one for left , one for right, one for center flipped, one for left flipped, one for right flipped.\\
+ In the simulator there are a lot of left turns, so we don’t want that our model to know only how to turn to left so we are flipping to generalize so that it can make a right turn too.\\
+ 
+ The final histogram depicts samples and their angles after the flipping operation:
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=0.8\textwidth]{16.png}
+ 	\caption{Flipping original image}
+ \end{figure}
+
+\subsubsection{Normalizing:}
+  we need to Normalize the model. Well it is a perfect step to normalize the data before processing so we normalize all the images mean centered. Since we have a lot of images so it is not a good idea to apply it to all images in one go, since you may go out of memory we will later add this step in keras model and will give keras the opportunity to do it for us.This process is also known as panned process.
+   \begin{figure}[H]
+  	\centering
+  	\includegraphics[width=0.9\textwidth]{15.png}
+  	\caption{Panned original image}
+  \end{figure}
+
+\subsubsection{Cropping:}
+ If we observe the image, the trees and sky do not play any important role in our image, instead they are more likely to distract our model. So we don’t need them. Also if we observe, car dash is visible in the bottom of the image so we crop that too. We avoid cropping anything horizontally because we do not want to loose information of the curvature of the road. For cropping images initially, we use keras to crop.
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=0.8\textwidth]{bcro.jpg}
+ 	\caption{Original image before cropping.}
+ \end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{acro.jpg}
+	\caption{Original image after cropping.}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{bluracro.jpg}
+	\caption{Blurred image after cropping.}
+\end{figure}
+
+\subsubsection{Zooming: }
+We can zoom the data set so that the order in which these images are processed by the CNN does not matters.\\
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{14.png}
+	\caption{Zoomed original image}
+\end{figure}
+
+
+There are many more Augmentation techniques that can be applied like varying lighting conditions and brightness, a little bit of transformations as well but let’s be happy with the current data set and feed this into our model and see what happens.\\
+Some of them are shown below after applying multiple augmentation techniques on them :\\
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{download1.png}
+	\caption{Augmented original image 1}
+\end{figure} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{download2.png}
+	\caption{Augmented original image 2}
+\end{figure}
+
+We finally rescaled all images from dataset from 320x160 pixels to 200x66. Then, using Keras Cropping2D layer I cropped 80 rows from the top and 40 rows from the bottom of each image. This removed unnecessary information about sky, trees and the car hood at the bottom. The final image size was 200x66 which was intentional as it's regarded easier for CNN to operate when the input image is as per the requirement of our model.\\
+The NVIDIA Model works great and extract details efficiently with YUV coloured image rather than RGB image, so we change the color of our data-set images into YUV-format. It looks like the below figure :
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{rgb.jpg}
+	\caption{Original Image in RGB color.}
+\end{figure} 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{yuv.jpg}
+	\caption{Augmented Image in YUV format.}
+\end{figure}
+The final pre processed data looks like this :
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{18.png}
+	\caption{Pre processed original image}
+\end{figure}
+Then the training and validation images can be described as the below figure : \\
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{19.png}
+	\caption{Training image and Validation image sample}
+\end{figure}
+
+\subsection{Model Architecture}
+Throughout the Behavioral Cloning project we tested 3 models: LeNet, model proposed by Comma.ai and model reported in Nvidia paper for end-to-end learning for self-driving cars. Our first step was to use a convolution neural network model similar to the LeNet model. WE thought this model might be appropriate because it worked well in previous projects utilizing CNN for e.g. handwritten digits recognition. After testing these models, adding/removing some layers we observed that the Nvidia model works the best in general. It's a well known CNN architecture recently, it has about 27 million connections and 250 thousand parameters approx. Ref. Nvidia fig. 3.1
+
+\subsubsection{Generators}
+Important Note- If we have 10,000 samples in data.csv then we will have 10,000 * 6 images in our dataset and it is not feasible to load these many images in one shot, since it will consume all the memory. So we have to take the help of generators that generate data in batches and use “yield” keyword, which keeps on appending images one after the other. Also, it is recommended to perform data augmentation inside generators.\\\\
+To test our model how it is performing, lets divide our dataset into two parts, training set and validation set. This is also helpful to judge the performance as well to combact overfitting.
+
+\subsection{Model Tuning}
+In order to gauge how well the model was working, We split our image and steering angle data into a training and validation set. We found that sometimes our model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. To combat this, we modified the model so that after each convolutional layer there is a dropout layer.\\ Also, to increase nonlinearity, "ELU" activation layers were placed after each layer of the model. The model used an Adam optimizer, so the learning rate was automated during the training process. We tuned a bit the batch size which finally equaled 100. Also, we were experimenting with the number of epochs between 5 and 15. Finally, it was sufficient to run the training on 10 epochs.
+
+\subsection{Final Model Architecture}
+The final model architecture consisted of a convolution neural network with the following layers and layer sizes. Total number of parameters (all trainable) equaled 252219.
+
+\subsection{Training and the final outcome}
+Training was done on Google Colab instance which was equipped with standard Tesla GPUs. After the training was done, the car was able to complete the track by itself.\\ \\
+The graph of the Loss plot is shown below :\\
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{20.png}
+	\caption{Loss plot of our model}
+\end{figure}
+But the most important thing learnt is the Importance of GOOD training data~\cite{lu2017much}. Things at a point do depend on the model architecture but the training data is the ultimate decider.
+
+\subsubsection{Simulation}
+While testing a trained CNN, we first evaluate the networks performance in simulation. A simplified block diagram of the simulation system is shown in Figure 1.2. The simulator takes pre-recorded frames of videos from a forward-facing on-board camera on a 3D Game-driven data-collection vehicle and generates images that approximate what would appear if the CNN were, instead, steering the vehicle. These test videos are time-synchronized with recorded steering commands generated by the player(training) driver.\\
+
+Since the game drivers might not be driving in a particular lane all the time, we manually calibrate the lane associated with each frame in the video used by the simulator. We call this position the “ground truth”. The simulator transforms the original images to account for departures from the ground truth.\\
+
+This transformation also includes any discrepancy between the game driven path and the ground truth. The simulator accesses the recorded test video along with the synchronized steering commands that occurred when the video was captured. The simulator sends the first frame of the chosen test video, adjusted for any departures from the ground truth, to the input of the trained CNN. The CNN then returns a steering command for that frame. The CNN steering commands as well as the recorded training-driver commands are fed into the dynamic model of the vehicle to update the position and orientation of the simulated vehicle. The simulator then modifies the next frame in the test video so that the image appears as if the vehicle were at the position that resulted by following steering commands from the CNN. This new image is then fed to the CNN and the process repeats. The simulator records the off-center distance (distance from the car to the lane center), the yaw, and the distance traveled by the virtual car. When the off-center distance exceeds one meter, a virtual training intervention is triggered, and the virtual vehicle position and orientation is reset to match the ground truth of the corresponding frame of the original test video. 

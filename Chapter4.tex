@@ -1,0 +1,18 @@
+\chapter{Vehicle behavioral cloning}
+
+\section{Introduction}
+After playing with lane lines detection and traffic signs classifcation, it's time to feed a Deep Neural Network with a video recorded during human driving. The model will be trained afterwards to act "humanlike" and predict correct steering angles while driving autonomously. Such procedure is also called Behavioral Cloning~\cite{8345542} ~\cite{farag2018behavior}. For simplicity (and public safety) We collected video data and tested the resulting DNN in a game-like simulator developed by Udacity. 
+
+
+\subsection{Behavioral Cloning}
+This method is widely used among the companies in the industry. Google's Waymo reports to collect 4 million miles of data by Nov 2017. It's a huge, still growing database which enables to produce high-quality models like Deep Neural Networks. Their goal is to generalize and behave appropriately in any situation on a road.\\
+
+Even in previously unseen situations. Some companies, like drive.ai, almost entirely rely on such holistic deep-learning approach. This is in contrast to a traditional robotics approach or when smaller DNNs are used for different system components. Of course, processing of such enormous amount of data is a great challenge. \\
+
+This stimulates the need of faster GPU processors or new DNN structures. Here , you can find an informative analysis describing what effort it takes to train such data in real production environment. It's worth noticing that recorded data usually doesn't come only from cameras. There are also LiDARs or radars which fused together create a complete machine vision system.\\
+
+The main objective of the behavioural cloning is to understand the behaviour and state of mind of the driver while driving inorder to adapt the safety~\cite{4153054} and stability of the vehicle and passengers on-board. In other terms it is the process of cloning/ replicating the behaviour of the driver while collecting the data for training the model.\\
+
+So the better the performance and stability of the driver while training the better will be the accuracy of the autonomous vehicle and the more the training data more will be the precision to deal with certain new conditions and environmental factors.
+
+

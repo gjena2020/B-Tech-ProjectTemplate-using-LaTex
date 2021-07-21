@@ -1,0 +1,245 @@
+\chapter{}
+\section{{Traffic sign classification}}
+\subsection{Introduction}
+{\textbf{Packages used:}}\\
+NumPy, MatPlotLib, Keras(sequential, dense, Adam optimizer, To\_categorical,\\ dropout, flatten, Conv2D, Maxpulling2D), Pickle, Pandas, Random.\\
+
+We have  taken 43 category of traffic signs dataset from https://bitbucket.org/jadslim/german-traffic-signs~\cite{6033395}. Data set contains data elements of classes ranging from 180-2010 making total of 52000 data elements approximately which are labeled in signnames.csv in the same traffic sign repository.\\
+We then classified the data elements into three categories namely: training set, test set, and validation set of sizes 32*32 pixels.
+We then preprocess the dataset using  cv2 and grayscale functions to transform the image from color to grayscale.\\
+
+We used histogram equalization function to improve the overall contrast of our image in order to make the image clear.\\
+Since some of the classes in our dataset consists of less number of data element we use the image data generator from keras.preprocessing.image module to randomly generate few more data elements by augmenting the existing data elements using zoom, shear, rotation , height and width shifting operations to make the data classes uniformly distributed.\\
+We upgraded the Lenet model to modified model using sequential, conv2D, dropout layers with the relu activation function and softmax activation function and finally using Adam optimizer with a learning rate of 0.001.\\
+
+We also added a dropout layer removing 40\% of the redundant elements so that the model does not memorise the images rather than extracting the features. We define  the loss as categorical\_crossentropy and metrics as accuracy. Now we summarize the model to get the final list of parameters and trainable parameters.\\
+We now go for traing the model using fit\_generator with datagen.flow function taking batch\_size = 50, steps\_per\_epoch = 2000, num\_of\_epocs = 10 and validation\_set = 20\% size of test data inorder to attain the best possible accuracy of 98.5\%
+We then plot the loss and accuracy graphs of the training and validation data. Now the algorithm is ready to test any given image and classify it. 
+
+\subsection{Detail Discussion}
+
+Traffic signs are an integral part of our road infrastructure. They provide critical information, sometimes compelling recommendations, for road users, which in turn requires them to adjust their driving behaviour to make sure they adhere with whatever road regulation currently enforced. Without such useful signs, we would most likely be faced with more accidents, as drivers would not be given critical feedback on how fast they could safely go, or informed about road works, sharp turn, or school crossings ahead. In our modern age, around 1.3M people die on roads each year. This number would be much higher without our road signs. 
+
+Naturally, autonomous vehicles must also abide by road legislation and therefore recognize and understand traffic signs.
+
+Traditionally, standard computer vision methods were employed to detect and classify~\cite{649946} traffic signs, but these required considerable and time-consuming manual work to handcraft important features in images. Instead, by applying deep learning to this problem, we create a model that reliably classifies traffic signs, learning to identify the most appropriate features for this problem by itself. In this post, I show how we can create a deep learning architecture that can identify traffic signs with close to 98.5\% accuracy on the test set.
+
+\subsubsection{Project Setup}
+The dataset is split into training, test and validation sets, with the following characteristics:\\
+$\to$ Images are 32 (width) x 32 (height) x 3 (RGB color channels)\\
+$\to$ Training set is composed of 34799 images\\
+$\to$ Validation set is composed of 4410 images\\
+$\to$ Test set is composed of 12630 images\\
+There are 43 classes (e.g. Speed Limit 20km/h, No entry, Bumpy road, etc.)\\
+Moreover, we used Python 3.7 with Tensorflow to develop our code.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{norm.png}
+	\caption{Sample image of the data-set}
+\end{figure}
+
+We used a very popular data set from bit-bucket consisting of the above criteria (https://bitbucket.org/jadslim/german-traffic-signs). This data-set is widely used as a world-wide standard for traffic-sign classification. It was proposed as the benchmark proposal at the IEEE International Joint Conference for Neural Networks (IJCNN) 2013.
+
+\subsubsection{Images and Distribution}
+We can see below a sample of images from the data-set, with labels displayed above the row of corresponding images. Some of them are quite dark so we will look to improve contrast a bit later.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{hist.png}
+	\caption{Distribution of images in the data-set}
+\end{figure}
+
+\subsubsection{Sample of Training Set Images With Labels}
+There is also a significant imbalance across classes in the training set, as shown in the histogram below. Some classes have less than 200 images, while others have over 2000. This means that our model could be biased towards over-represented classes, especially when it is unsure in its predictions. We will see later how we can mitigate this discrepancy using data augmentation.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{sign1.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign2.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign3.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign4.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign5.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign6.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign7.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign8.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign9.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign10.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{sign11.jpg}
+	\caption{Test Image for Lane Detection}
+\end{figure}
+
+\subsubsection{Pre-Processing Steps}
+We initially apply two pre-processing steps to our images:\\
+{\textbf{Grayscale :}}\\
+We convert our 3 channel image to a single grayscale image (we do the same thing in chapter 1 — Lane Line Detection)
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{gray.png}
+	\caption{Transforming image to gray scale}
+\end{figure}
+.\\
+{\textbf{Image Normalisation}}\\
+We center the distribution of the image dataset by subtracting each image by the dataset mean and divide by its standard deviation. This helps our model treating images uniformly. The resulting images look as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{histeq.png}
+	\caption{Histogram Equalization of image}
+\end{figure}
+Normalised images — we can see how “noise” is distributed
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{prepro.png}
+	\caption{Sample of preprocessed image}
+\end{figure}
+
+\subsubsection{Model Architecture}
+The architecture proposed is inspired from Yann Le Cun’s paper on classification of traffic signs. We added a few tweaks and created a modular codebase which allows us to try out different filter sizes, depth, and number of convolution layers, as well as the dimensions of fully connected layers. In homage to Le Cun, and with a touch of cheekiness, we called such network LeNet.
+We mainly tried 5x5 and 3x3 filter (aka kernel) sizes, and start with depth of 32 for our first convolutional layer. LeNet’s 3x3 architecture is shown below:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{lenet.png}
+	\caption{Architecture of LeNet Model}
+\end{figure}
+
+{\textbf{LeNet 3x3 Architecture}} : The network is composed of 3 convolutional layers — kernel size is 3x3, with depth doubling at next layer — using ReLU as the activation function, each followed by a 2x2 max pooling operation. The last 3 layers are fully connected, with the final layer producing 43 results (the total number of possible labels) computed using the SoftMax activation function. The network is trained using mini-batch stochastic gradient descent with the Adam optimizer. We build a highly modular coding infrastructure that enables us to dynamically create our models. We modified the existing model in order to improve the performance~\cite{hedlund2017autonomous} and accuracy of the model. We have shown the model here,
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model.jpg}
+	\caption{Modified LeNet Model Architecture}
+\end{figure}
+
+
+\subsubsection{Dropout}
+In order to improve the model reliability, we turned to dropout, which is a form of regularisation where weights are kept with a probability p: the unkept weights are thus “dropped”. This prevents the model from overfitting.
+
+\subsubsection{Histogram Equalization}
+Histogram Equalization is a computer vision technique used to increase the contrast in images. As some of our images suffer from low contrast (blurry, dark), we will improve visibility by applying OpenCV’s Contrast Limiting Adaptive Histogram Equalization (aka CLAHE) function.
+
+\subsubsection{Data Augmentation}
+We observed earlier that the data presented glaring imbalance across the 43 classes. Yet it does not seem to be a crippling problem as we are able to reach very high accuracy despite the class imbalance. We also noticed that some images in the test set are distorted. We are therefore going to use data augmentation techniques in an attempt to:\\
+$\to$ Extend dataset and provide additional pictures in different lighting settings and orientations\\
+$\to$ Improve model’s ability to become more generic\\
+$\to$ Improve test and validation accuracy, especially on distorted images
+
+We use a nifty library called imgaug(i.e., ImageDataGenerator) to create our augmentations. We mainly apply affine transformations to augment the images.
+
+While the class imbalance probably causes some bias in the model, we have decided not to address it at this stage as it would cause our dataset to swell significantly and lengthen our training time (we don’t have a lot of time to spend on training at this stage). Instead, we decided to augment each class by 10\%. Our new dataset looks as follows.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{imgaug.png}
+	\caption{Augumented set of images}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{imgaugu.png}
+	\caption{Augumented set of images}
+\end{figure}
+
+The distribution of images does not change significantly of course, but we do apply grayscale, histogram equalization and normalisation pre-processing steps to our images.
+
+\subsubsection{Testing On New Images}
+We decided to test our model on new images as well, to make sure that it’s indeed generalised to more than the traffic signs in our original dataset. We therefore downloaded a new image and submitted it to our model for prediction.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{testsam.png}
+	\caption{Random image for testing from internet}
+\end{figure}\\
+.\\
+The Image was chosen because of the following:\\
+$\to$ It represent different traffic sign that we currently classify\\
+$\to$ It vary in shape and color\\
+$\to$ It is under different lighting condition\\
+$\to$ It is under different orientation\\
+$\to$ It has different background, etc.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{testpp.png}
+	\caption{Preprocessed Test image}
+\end{figure}
+.\\
+We get the result of or test image as 
+
+Predicted Sign: [29]- Bicycles crossing\\\\
+with the following scores
+
+Test score: 0.12626752376309303
+		
+Test accuracy: 0.9714172605380876\\\\
+Visualizing Our Activation Maps
+We show below the results produced by each convolutional layer (before max pooling), resulting in 3 activation maps.\\
+
+{\textbf{Layer 1 :}}\\
+We can see that the network is focusing a lot on the edges of the circle and somehow on the truck. The background is mostly ignored.\\
+
+{\textbf{Layer 2 :}}\\
+Activation Map Of Second Convolutional Layer.\\
+
+It is rather hard to determine what the network is focusing on in layer 2, but it seems to “activate” around the edges of the circle and in the middle, where the truck appears.\\
+
+{\textbf{Layer 3 :}}\\
+This activation map is also hard to decipher. But it seems the network reacts to stimuli on the edges and in the middle once again.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{loss.png}
+	\caption{Loss Plot of our model during training.}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{accu.png}
+	\caption{Accuracy Plot of our model during training.}
+\end{figure}
+
+\subsection{Conclusion}
+We covered how deep learning can be used to classify traffic signs with high accuracy, employing a variety of pre-processing and regularization techniques (e.g. dropout), and trying different model architectures. We built highly configurable code and developed a flexible way of evaluating multiple architectures. Our model reached close to close to 98.5\% accuracy on the test set, achieving 99.27\% on the validation set.
+
+We used Tensorflow, matplotlib and investigated artificial neural network architectures.
+
+\subsection{Future Scope}
+In the future, we believe higher accuracy~\cite{8575857} can be achieved by applying further regularization techniques such as batch normalization and also by adopting more modern architectures such as GoogLeNet’s Inception Module, ResNet, or Xception.
+
+
+
