@@ -20,4 +20,4 @@ Download JabRef and install as admin.
 Now your system ready for coding
 For fundamentals of LaTex refer part1 https://youtu.be/Vw8N4OQ_aRU
 For project document pl refer youtube part2 https://youtu.be/wkdLm2Knc4U
-Any query send to drgjena@gmail.com
+
